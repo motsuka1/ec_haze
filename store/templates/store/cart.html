@@ -11,8 +11,8 @@
 
         <table class="table">
           <tr>
-            <th><h5>数量: <strong>3</strong></h5></th>
-            <th><h5>小計: <strong>￥4300</strong></h5></th>
+            <th><h5>数量: <strong>{{order.get_cart_items}}</strong></h5></th>
+            <th><h5>小計: <strong>￥{{order.get_cart_total|floatformat:0}}</strong></h5></th>
             <th>
               <a style="float:right; margin:5px" class="btn btn-success" href="{% url 'checkout' %}">レジに進む</a>
             </th>
@@ -31,20 +31,21 @@
           <div style="flex:1"><strong>小計</strong></div>
         </div>
 
+        {% for item in items %}
         <div class="cart-row">
-          <div style="flex:2"><img class="row-image" src="{% static 'images/placeholder.png' %}"></div>
-          <div style="flex:2">自家製玄米甘酒生ドレッシング 1</div>
-          <div style="flex:1">￥2000</div>
+          <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+          <div style="flex:2">{{item.product.name}}</div>
+          <div style="flex:1">￥{{item.product.price|floatformat:0}}</div>
           <div style="flex:1">
-            <p class="quantity">2</p>
+            <p class="quantity">{{item.quantity}}</p>
             <div class="quantity">
               <img class="chg-quantity" src="{% static 'images/arrow-up.png' %}">
               <img class="chg-quantity" src="{% static 'images/arrow-down.png' %}">
             </div>
           </div>
-          <div style="flex:1">￥4000</div>
+          <div style="flex:1">￥{{item.get_total|floatformat:0}}</div>
         </div>
-
+        {% endfor %}
       </div>
     </div>
 </div>
