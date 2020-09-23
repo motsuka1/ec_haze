@@ -14,11 +14,19 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     price = models.FloatField()
     degital = models.BooleanField(default=False)
-    # image =
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+        
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True) # SET_NULL so null needs to be True
     date_ordered = models.DateTimeField(auto_now_add=True)
