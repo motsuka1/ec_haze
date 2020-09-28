@@ -13,7 +13,7 @@ class Customer(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200)
     price = models.FloatField()
-    degital = models.BooleanField(default=False)
+    digital = models.BooleanField(default=False)
     image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
@@ -41,8 +41,9 @@ class Order(models.Model):
         shipping = False
         orderitems = self.orderitem_set.all()
         for i in orderitems:
-            if i.digital == ""
-        return shipping 
+            if i.product.digital == False:
+                shipping = True
+        return shipping
 
     @property
     def get_cart_total(self):
