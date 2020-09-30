@@ -8,7 +8,7 @@
       <div class="box-element product">
         <h6><strong>{{product.name}}</strong></h6>
         <hr>
-        <button type="button" class="btn btn-outline-secondary add-btn">カートに入れる</button>
+        <button data-product={{product.id}} data-action="add" type="button" class="btn btn-outline-secondary add-btn update-cart">カートに入れる</button>
         <a class="btn btn-outline-success" href="#">詳細</a>
         <h4 style="display: inline=block;float: right">￥{{product.price|floatformat:0}}</h4>
       </div>
