@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 import environ
-import django_heroku
+# import django_heroku
 
 environ.Env.read_env()
 
@@ -141,4 +141,4 @@ MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
