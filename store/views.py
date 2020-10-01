@@ -69,9 +69,11 @@ def processOrder(request):
 
     else:
         customer, order = guestOrder(request, data)
+        
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
 
+    # make sure that the user is not manipulating the price
     if total == order.get_cart_total:
         order.complete = True
     order.save()

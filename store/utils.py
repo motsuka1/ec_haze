@@ -45,11 +45,12 @@ def cartData(request):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
     else:
-        coockieData = cookieCart(request)
-        items = coockieData['items']
-        order = coockieData['order']
-        cartItems = coockieData['cartItems']
+        cookieData = cookieCart(request)
+        items = cookieData['items']
+        order = cookieData['order']
+        cartItems = cookieData['cartItems']
     return {"items": items, "order": order, "cartItems": cartItems}
 
 def guestOrder(request, data):
