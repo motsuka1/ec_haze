@@ -16,6 +16,7 @@ media
 # in your Git repository. Update and uncomment the following line accordingly.
 ec_haze/staticfiles/
 static/
+staticfiles/
 
 ### Django.Python Stack ###
 # Byte-compiled / optimized / DLL files
