@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import environ
 import django_heroku
+import psycopg2
 
 env = environ.Env()
 environ.Env.read_env()
@@ -84,16 +85,19 @@ WSGI_APPLICATION = 'ec_haze.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ec_haze',
-        'USER': 'masakiotsuka',
-        'PASSWORD': env.str('DB_PASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ec_haze',
+#         'USER': 'masakiotsuka',
+#         'PASSWORD': env.str('DB_PASSWORD'),
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 
 # Password validation
@@ -145,3 +149,6 @@ MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 django_heroku.settings(locals())
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
