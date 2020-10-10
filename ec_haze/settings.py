@@ -142,9 +142,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env('cloud_name'),
-    'API_KEY': env('api_key'),
-    'API_SECRET': env('api_secret')
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
 }
 
 django_heroku.settings(locals())
