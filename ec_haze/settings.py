@@ -16,13 +16,12 @@ import environ
 import django_heroku
 import psycopg2
 
+
 env = environ.Env()
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -48,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'store.apps.StoreConfig',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -85,16 +86,6 @@ WSGI_APPLICATION = 'ec_haze.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'ec_haze',
-#         'USER': 'masakiotsuka',
-#         'PASSWORD': env.str('DB_PASSWORD'),
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -145,8 +136,16 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/images/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env.str('cloud_name'),
+    'API_KEY': env.str('api_key'),
+    'API_SECRET': env.str('api_secret')
+}
 
 django_heroku.settings(locals())
 
