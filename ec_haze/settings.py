@@ -87,8 +87,8 @@ WSGI_APPLICATION = 'ec_haze.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-DATABASE_URL = os.environ['DATABASE_URL']
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+DATABASE_URL = {'default': env.db('DATABASE_URL')}
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 
 # Password validation
@@ -142,9 +142,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env.str('cloud_name'),
-    'API_KEY': env.str('api_key'),
-    'API_SECRET': env.str('api_secret')
+    'CLOUD_NAME': env('cloud_name'),
+    'API_KEY': env('api_key'),
+    'API_SECRET': env('api_secret')
 }
 
 django_heroku.settings(locals())
